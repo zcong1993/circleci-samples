@@ -1,0 +1,13 @@
+{
+  "name": "start",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "zcong1993 <1005997919@qq.com> (https://github.com/zcong1993)",
+  "license": "MIT",
+  "scripts": {
+    "test": "echo no test"
+  },
+  "dependencies": {
+    "vue": "*"
+  }
+}

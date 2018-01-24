@@ -1,0 +1,35 @@
+# 使用 2.0 版本
+version: 2
+# 定义任务
+jobs:
+  # 任务名称
+  test:
+    # 工作目录
+    working_directory: ~/github/repo
+    # docker 配置
+    docker:
+      # 选择镜像
+      - image: circleci/node:8.9.4
+    # 执行步骤
+    steps:
+      # 拉取 github 代码, 内置命令
+      - checkout
+      # 如果有缓存, 先取出缓存再运行安装依赖命令
+      - restore_cache:
+        # 标识键
+        key: dependency-cache-{{ checksum "package.json" }}
+      # 定义命令, 安装依赖包
+      - run:
+          name: install dependences
+          command: yarn
+      # 安装依赖包之后缓存 node_modules 文件夹
+      - save_cache:
+          # 缓存路径
+          paths:
+            - node_modules
+          # 标识键, 改变时更新缓存
+          key: dependency-cache-{{ checksum "package.json" }}
+      # 定义命令, 执行我们的测试
+      - run:
+          name: run test
+          command: yarn test
